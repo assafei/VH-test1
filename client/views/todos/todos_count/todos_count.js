@@ -1,7 +1,7 @@
 /*****************************************************************************/
-/* TodosIndex: Event Handlers and Helpers */
+/* TodosCount: Event Handlers and Helpers */
 /*****************************************************************************/
-Template.TodosIndex.events({
+Template.TodosCount.events({
   /*
    * Example: 
    *  'click .selector': function (e, tmpl) {
@@ -10,34 +10,30 @@ Template.TodosIndex.events({
    */
 });
 
-Template.TodosIndex.helpers({
+Template.TodosCount.helpers({
   /*
    * Example: 
    *  items: function () {
    *    return Items.find();
    *  }
    */
-  items: function () {
-    return Todos.find({}, {
-      sort: {
-        created_at: -1
-      }
-    });
+  completedCount: function () {
+    return Todos.find({is_done: true}).count(); 
   },
 
-  isDoneClass: function () {
-    return this.is_done ? 'done' : '';
+  totalCount: function () {
+    return Todos.find({}).count();
   }
 });
 
 /*****************************************************************************/
-/* TodosIndex: Lifecycle Hooks */
+/* TodosCount: Lifecycle Hooks */
 /*****************************************************************************/
-Template.TodosIndex.created = function () {
+Template.TodosCount.created = function () {
 };
 
-Template.TodosIndex.rendered = function () {
+Template.TodosCount.rendered = function () {
 };
 
-Template.TodosIndex.destroyed = function () {
+Template.TodosCount.destroyed = function () {
 };
