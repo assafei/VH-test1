@@ -7,6 +7,17 @@
     </div>
 
     <div class="row">
+      <ul class="breadcrumb">
+        <li>
+          <a href="{{pathFor 'todos.index'}}">Home</a> <span
+            class="divider">/</span>
+        </li>
+
+        {{> yield region="breadcrumbs"}}
+      </ul>
+    </div>
+
+    <div class="row">
       {{> yield}}
     </div>
   </div>
