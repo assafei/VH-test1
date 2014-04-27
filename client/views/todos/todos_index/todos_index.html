@@ -1,4 +1,16 @@
 <template name="TodosIndex">
-  {{> PatientView}}    
+  {{#if currentUser}}
+  	{{#if userRoleIs "provider"}}
+  		{{goToProviderView}}
+  	{{else}}
+  		{{#if userRoleIs "patient"}}
+  			{{> PatientView}}   
+  		{{else}} 
+  			Loading...
+  		{{/if}}
+  	{{/if}}
+  {{else}}
+  	Please sign in...
+  {{/if}}
 </template>
 

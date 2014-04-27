@@ -11,7 +11,8 @@ Todos.allow({
   },
 
   update: function (userId, doc, fieldNames, modifier) {
-    return doc.user_id === userId;
+    return true;
+    //doc.user_id === userId;
   },
 
   remove: function (userId, doc) {
