@@ -18,4 +18,5 @@ Router.map(function () {
   */
   this.route('todos.index', {path: '/'});
   this.route('todos.detail', {path: '/todos/:_id'});
+  this.route('provider.view', {path: '/provider_view'});
 });
