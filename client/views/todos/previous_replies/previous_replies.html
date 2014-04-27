@@ -1,0 +1,13 @@
+<template name="PreviousReplies">
+  <ul class="todos-list">
+      {{#each items}}
+        <li class="todo-item">
+          {{answer_content}}
+        </li>
+      {{else}}
+        <li class="todo-item empty">
+          No replies yet.
+        </li>
+      {{/each}}
+    </ul>
+</template>

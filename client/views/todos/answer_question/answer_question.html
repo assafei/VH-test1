@@ -1,0 +1,15 @@
+<template name="AnswerQuestion">
+  <form class="create-todo">
+    {{#if allowedToAnswer}}    
+      <input type="textarea" placeholder="Help by typing your reply here..."/>
+  	{{else}}
+    	{{#if userRoleIs "provider"}}        	
+    		My previous answer:
+      		<input type="textarea" readonly placeholder="Help by typing your reply here..." value={{myPreviousAnswer}} />
+    	{{else}}
+        	@--->---
+    	{{/if}}
+    {{/if}}
+  </form>
+</template>
+
