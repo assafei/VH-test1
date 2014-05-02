@@ -1,7 +1,8 @@
 <template name="ProviderView">
+  {{> FilterCategories}}
   <div class="todos-panel">
     {{> CreateTodoItem}}
-
+    
     <ul class="todos-list">
       {{#each items}}
         <li class="todo-item {{isDoneClass}}">
@@ -20,3 +21,13 @@
     </div>
   </div>
 </template>
+
+<template name="FilterCategories">
+    <div class="categoryList">
+    {{#each available_categories}}    
+      
+        <input class="categoryButton" type="button" value={{tag}}({{count}})>      
+      
+    {{/each}}
+    </div>
+</template> 
