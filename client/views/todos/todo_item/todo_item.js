@@ -11,11 +11,35 @@ Template.TodoItem.events({
   'click [name=is_done]': function (e, tmpl) {
     var id = this._id;
     var isDone = tmpl.find('input').checked;
-    Todos.update({_id: id}, {
+    
+    if (isDone)
+    {
+      console.log('adding ignore_id...'); 
+      Meteor.users.update(
+        Meteor.userId(), 
+        //{ 'profile.ignore_list': {$push: { id }}}
+        { $addToSet: { 'profile.ignore_list': id  } }
+        //Todos.update(this._id, {$addToSet: {tags: value}});
+      );
+    }
+    else
+    {
+      console.log('removing ignore_id...');
+      Meteor.users.update(
+        Meteor.userId(), 
+        //{ 'profile.ignore_list': {$push: { id }}}
+        { $pull: { 'profile.ignore_list': id  } }
+        //Todos.update(this._id, {$addToSet: {tags: value}});
+      );
+    }
+
+
+    // ASSAF: I removed this piece and made it user-based
+    /*Todos.update({_id: id}, {
       $set: {
         is_done: isDone
       }
-    });
+    });*/
   }
 });
 
@@ -27,7 +51,11 @@ Template.TodoItem.helpers({
    *  }
    */
   isDoneChecked: function () {
-    return this.is_done ? 'checked' : '';
+    
+    
+    var isIgnored = App.helpers.isIgnoreItem(this._id);
+    
+    return isIgnored ? 'checked' : '';
   }
 });
 

@@ -19,6 +19,13 @@ Template.ProviderView.helpers({
    */
   items: function () {
     
+    if(Meteor.loggingIn()) { 
+      return null; 
+    }
+
+    var ignore_list = Meteor.user().profile.ignore_list;
+    
+    // Select all filters (categories)
     var sel = {};
     var tag_filter = Session.get('tag_filter');
     if (tag_filter)
@@ -35,11 +42,18 @@ Template.ProviderView.helpers({
           created_at: -1
         }
       }
-    );
+    ).fetch().sort(function(a,b) { return  Meteor.user().profile.ignore_list.indexOf(a._id) - Meteor.user().profile.ignore_list.indexOf(b._id); } );
+
   },
 
   isDoneClass: function () {
-    return this.is_done ? 'done' : '';
+    
+    var isIgnored = App.helpers.isIgnoreItem(this._id);
+
+    return isIgnored ? 'done' : '';
+
+    // ASSAF: update to individual hide
+    //return this.is_done ? 'done' : '';
   },
 
   userrole: function() {
@@ -68,10 +82,11 @@ Template.ProviderView.destroyed = function () {
 };
 
 
-Template.FilterCategories.helpers({
+Template.tag_filter.helpers({
 
   available_categories: function () {
-
+    
+    console.log('available_categories');
     var tag_infos = [];
     var total_count = 0;
     
@@ -87,15 +102,25 @@ Template.FilterCategories.helpers({
     });
 
     tag_infos = _.sortBy(tag_infos, function (x) { return x.tag; });
-    tag_infos.unshift({tag: "All", count: total_count});
+    tag_infos.unshift({tag: null, count: total_count});
     
     return tag_infos;
   
+  },
+
+  tag_text: function () {
+    return this.tag || "All items";
+  },
+
+  tag_selected: function () {
+    return Session.equals('tag_filter', this.tag) ? 'selected' : '';
   }
+
+
 });
 
-Template.FilterCategories.events({
-  'click .categoryList .categoryButton': function () {
+Template.tag_filter.events({
+  'mousedown .tag': function () {
     console.log('hi' + this.tag);
     if (Session.equals('tag_filter', this.tag))
       Session.set('tag_filter', null);

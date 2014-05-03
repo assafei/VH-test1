@@ -1,6 +1,7 @@
 /*****************************************************************************/
 /* Client App Namespace  */
 /*****************************************************************************/
+
 var isUserAgentBlacklisted = function () {
   var blacklist = ['PhantomJS', 'Googlebot', 'Bing', 'Yahoo'];
 
@@ -47,6 +48,19 @@ _.extend(App, {
 });
 
 App.helpers = {
+
+isIgnoreItem: function (id) {
+  
+    var isIgnored = false;
+    if(Meteor.userId()){
+      if(Meteor.user().profile){
+        if(Meteor.user().profile.ignore_list){          
+          isIgnored = (Meteor.user().profile.ignore_list.indexOf(id) >= 0);
+        }
+      }
+    }
+    return (isIgnored);
+  }
 };
 
 _.each(App.helpers, function (helper, key) {
@@ -57,3 +71,4 @@ Deps.autorun(function () {
   var path = IronLocation.path();
   App.track('Page Views');
 });
+

@@ -1,6 +1,7 @@
 <template name="ProviderView">
-  {{> FilterCategories}}
-  <div class="todos-panel">
+  {{> tag_filter}}
+  <div class="todos-panel" style="clear:both">
+    
     {{> CreateTodoItem}}
     
     <ul class="todos-list">
@@ -31,3 +32,14 @@
     {{/each}}
     </div>
 </template> 
+
+<template name="tag_filter">
+  <div id="tag-filter" class="tag-list">
+    <div class="label">Show:</div>
+    {{#each available_categories}}
+      <div class="tag {{tag_selected}}">
+        {{tag_text}} <span class="count">({{count}})</span>
+      </div>    
+    {{/each}}
+  </div>
+</template>

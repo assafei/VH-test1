@@ -17,8 +17,20 @@ Template.TodosCount.helpers({
    *    return Items.find();
    *  }
    */
-  completedCount: function () {
-    return Todos.find({is_done: true}).count(); 
+  availableCount: function () {
+
+    if(Meteor.loggingIn()) { 
+      return Todos.find({}).count(); 
+    }
+
+    var ignore_list = Meteor.user().profile.ignore_list;
+    if (!ignore_list) 
+      return Todos.find({}).count();
+
+    return Todos.find({ _id: { $nin: ignore_list } }).count();
+
+
+    //return Todos.find({is_done: true}).count(); 
   },
 
   totalCount: function () {
