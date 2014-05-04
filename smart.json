@@ -1,5 +1,6 @@
 {
   "packages": {
-    "iron-router": "0.7.0"
+    "iron-router": "0.7.0",
+    "collection-hooks": {}
   }
 }

@@ -17,6 +17,15 @@ Template.ProviderView.helpers({
    *    return Items.find();
    *  }
    */
+
+  joinWithIgnore: function() {
+    //console.log('joinWithIgnore');
+    //var currItem = this;
+    //var isIgnore = Meteor.user().profile.ignore_list.indexOf(currItem._id) >= 0 ? 1 : 0;
+    //return _.extend(currItem, {isIgnore: isIgnore});
+    return this;
+  },
+
   items: function () {
     
     if(Meteor.loggingIn()) { 
@@ -32,17 +41,21 @@ Template.ProviderView.helpers({
       sel = { categories: { $elemMatch: { $in: [tag_filter] } } };
       //sel.categories = [tag_filter];
     
+    //return Todos.find(sel, {sort: {isIgnore: -1, created_at: -1}});
+
     
-    return Todos.find(
+    return Todos.find(sel).fetch().sort(function(a,b) { 
+
+      var ignore_list = Meteor.user().profile.ignore_list;
+      var diff = ignore_list.indexOf(a._id) - ignore_list.indexOf(b._id);
       
-        sel
-      ,
-      {
-        sort: {
-          created_at: -1
-        }
+      if (diff == 0) {
+        return b.created_at - a.created_at;
       }
-    ).fetch().sort(function(a,b) { return  Meteor.user().profile.ignore_list.indexOf(a._id) - Meteor.user().profile.ignore_list.indexOf(b._id); } );
+      else {
+        return diff;
+      }
+    } );
 
   },
 
@@ -86,7 +99,7 @@ Template.tag_filter.helpers({
 
   available_categories: function () {
     
-    console.log('available_categories');
+
     var tag_infos = [];
     var total_count = 0;
     

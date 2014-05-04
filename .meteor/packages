@@ -10,3 +10,5 @@ accounts-password
 accounts-ui
 less
 mixpanel
+collection-hooks
+email

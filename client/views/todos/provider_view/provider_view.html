@@ -6,9 +6,11 @@
     
     <ul class="todos-list">
       {{#each items}}
-        <li class="todo-item {{isDoneClass}}">
-          {{> TodoItem}}
-        </li>
+        {{#with joinWithIgnore}}
+          <li class="todo-item {{isDoneClass}}">
+            {{> TodoItem}}
+          </li>
+        {{/with}}
       {{else}}
         <li class="todo-item empty">
           No todos yet.

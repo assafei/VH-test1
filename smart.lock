@@ -4,13 +4,19 @@
     "basePackages": {
       "iron-router": {
         "version": "0.7.0"
-      }
+      },
+      "collection-hooks": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.7.0",
         "commit": "05f34bc48c4cad9fdaa366c1ddcabe6980232ece"
+      },
+      "collection-hooks": {
+        "git": "https://github.com/matb33/meteor-collection-hooks.git",
+        "tag": "v0.6.3",
+        "commit": "70f2598bf991cb36effd72aea2555cba96f88355"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
