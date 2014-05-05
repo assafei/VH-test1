@@ -1,7 +1,28 @@
 <template name="CreateTodoItem">
   <form class="create-todo">
     {{#if currentUser}}
-      <input type="textarea" placeholder="Ask your question by typing here..."/>
+    	{{#if isCategorySelectMode}}
+  			<div class="item-tags">
+			{{#each allCategories}}
+			<div class="tag removable_tag">
+				<div class="name">{{this}}</div>
+				<div class="remove"></div>
+			</div>
+			{{/each}}
+		    {{#if adding_tag}}
+		      <div class="tag edittag">
+		          <input type="text" id="edittag-input" value="" />
+		      </div>
+		    {{else}}
+		      <div class="tag addtag">
+		        +tag
+		      </div>
+		    {{/if}}
+    	</div>
+      		<input type="submit" value="Submit!"/>
+      	{{else}}
+      		<input type="textarea" placeholder="Ask your question by typing here..."/>
+      	{{/if}}
     {{else}}
       <input type="textarea" readonly placeholder="Sign in to create todos..."/>
     {{/if}}

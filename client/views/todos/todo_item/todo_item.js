@@ -1,6 +1,8 @@
 /*****************************************************************************/
 /* TodoItem: Event Handlers and Helpers */
 /*****************************************************************************/
+
+
 Template.TodoItem.events({
   /*
    * Example: 
@@ -50,6 +52,11 @@ Template.TodoItem.helpers({
    *    return Items.find();
    *  }
    */
+  prettifyDate: function(timestamp) {        
+    var d = (new Date(timestamp));
+    return timestamp.toDateString("yyyy-MM-dd");
+  },
+
   isDoneChecked: function () {
     
     
